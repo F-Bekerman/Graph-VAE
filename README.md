@@ -1,3 +1,4 @@
+
 # Graph-VAE
 We use the Variational Graph Autoencoder (T. Kipf, M. Welling https://arxiv.org/abs/1611.07308) for a link prediction task on network graphs. 
 
@@ -10,7 +11,10 @@ The first example is small subset of the Anonymized Facebook Graph with 4k Nodes
 # Requirements
 
 python==2.7.6
+
 tensorflow==1.0.0
+
 scipy==0.19.0
+
 numpy==1.12.1
 
