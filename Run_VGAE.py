@@ -13,7 +13,7 @@ import File_Reader
 
 
 #Load the Data
-adjacency=File_Reader.load_adjacency("rec-amazon.txt")
+adjacency=File_Reader.load_adjacency("\\data\\facebook_combined.txt")
 
 #Split in  Train, Test and Validation sets
 train_test_split=File_Reader.train_test_split(adjacency)
