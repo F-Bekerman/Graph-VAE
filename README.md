@@ -1,4 +1,3 @@
-
 # Graph-VAE
 We use the Variational Graph Autoencoder (T. Kipf, M. Welling https://arxiv.org/abs/1611.07308) for a link prediction task on network graphs. 
 
@@ -6,6 +5,7 @@ Variational Graph Autoencoders generate latent representations  of the adjacency
 
 # Data
 The datasets are contained in the folder 'data' and correspond to text files containing the list of edges. 
+
 The first example is small subset of the Anonymized Facebook Graph with 4k Nodes and 88k edges.
 
 # Requirements
