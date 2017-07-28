@@ -3,6 +3,20 @@ We use the Variational Graph Autoencoder (T. Kipf, M. Welling https://arxiv.org/
 
 Variational Graph Autoencoders generate latent representations  of the adjacency matrix of a graph using  Graph Convolutional Networks https://arxiv.org/abs/1609.02907 and recover the adjacency matrix from this latent representation.
 
+### Run_VGAE
+Run this program to Build a VGAE and train/test  it on your graph. Will return the test average precision every 10 training epochs and the final ROC_Curve.
+
+### File_Reader
+Generates the Train,Test and Validations sets from  the raw .txt file.
+
+### Initilization
+Contains the Initialization, Sampling and  Graph Convolutional Layer operations.
+
+### GCN_AE
+Definition of the class  VGAE (Variational Graph Autoencoder).
+
+
+
 # Data
 The datasets are contained in the folder 'data' and correspond to text files containing the list of edges. 
 
