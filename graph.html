@@ -35,7 +35,7 @@ var simulation = d3.forceSimulation()
 
 
 
-d3.json("adjacency.json", function(error, graph) {
+d3.json("https://github.com/F-Bekerman/Graph-VAE/blob/master/adjacency.json", function(error, graph) {
   if (error) throw error;
 
   var link = svg.append("g")
