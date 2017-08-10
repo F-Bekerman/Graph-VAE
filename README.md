@@ -22,7 +22,7 @@ The datasets are contained in the folder 'data' and correspond to text files con
 
 The first example is a small subset of the Anonymized Facebook Graph with 4k Nodes and 88k edges. A test set of positive examples containing 10% of  the edges chosen at random is removed from the graph. An equal number of negative examples is sampled by  randomly choosing pairs of unconnected nodes. 
 
-The algorithm achieves an average precision of roughly 99% on this test set (with a 100 hidden units, and a latent vector of size 50).
+The algorithm achieves an average precision of roughly 99% on this test set (with  100 hidden units, and a latent vector of size 50).
 
 # Requirements
 
