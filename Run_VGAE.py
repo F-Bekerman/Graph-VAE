@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+\\data\\# -*- coding: utf-8 -*-
 """
 Created on Mon Jul 24 11:38:17 2017
 
@@ -14,7 +14,7 @@ import Graph_Construct
 
 
 #Load the Data
-adjacency,list_adjacency,_=File_Reader.get_cluster("facebook_combined.txt")
+adjacency,list_adjacency,_=File_Reader.get_cluster("\\data\\facebook_combined.txt")
 
 #Split in  Train, Test and Validation sets
 train_test_split=File_Reader.train_test_split(adjacency)
