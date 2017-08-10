@@ -20,6 +20,12 @@ def sample_gaussian_np (mean,diag_cov):
     '''Samples a multivariate gaussian with the given  mean and diagonal covariance'''
     z = mean + np.random.normal(size=diag_cov.shape) * diag_cov
     return z
+def gcn_layer_id (norm_adj_mat,W):
+    return tf.nn.relu(tf.sparse_tensor_dense_matmul(norm_adj_mat,W))
+
+def gcn_layer (norm_adj_mat,h,W):
+    return tf.matmul(tf.sparse_tensor_dense_matmul(norm_adj_mat,h),W)
+
 
 def sigmoid (x):
     return 1.0/(1.0+np.exp(-x))

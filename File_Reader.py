@@ -7,9 +7,71 @@ Created on Wed Jul 19 17:49:58 2017
 
 import numpy as np
 import scipy.sparse as sp
+import igraph as ig
+import cairo
 
 
 
+def get_nnodes (file_name):
+    '''Loads a txt file containing the list of edges and return the adjacency matrix in coo format'''
+    file=open(file_name,'r')
+    n_nodes=0
+    for  line in file:
+        edge= line.split()
+        edge = list(map(int,edge))
+        if edge[0]>n_nodes:
+            n_nodes=edge[0]
+        if edge[1]>n_nodes:
+            n_nodes=edge[1]        
+    file.close()
+    n_nodes=n_nodes+1
+    return n_nodes
+
+
+
+def load_graph (file_name):
+    '''Loads a txt file containing the list of edges and return the adjacency matrix in coo format'''
+    file=open(file_name,'r')
+    G=ig.Graph()
+    n_nodes = get_nnodes(file_name)
+    G.add_vertices(n_nodes)
+    for  line in file:
+        edge= line.split()
+        edge = list(map(int,edge))
+        G.add_edge(edge[0],edge[1])
+    file.close()
+    return G
+
+
+def get_cluster (file_name,idx=-2):
+    '''Loads a txt file containt the list of edges and returns the adjacency matrix of the
+    biggest connected component, community or a community containing the given index. It also returns the list
+    of edges in this community'''
+    G=load_graph(file_name)
+    G.vs["name"]=list(range(G.vcount()))
+    if idx==-2:
+        G=G.components().giant()
+    if idx==-1:
+        G=G.components().giant()
+        G=G.community_multilevel().giant()       
+    else:       
+        com=G.community_multilevel()
+        for i in range(com.__len__()) :
+            if idx in com.subgraph(i).vs["name"]:
+                G=com.subgraph(i)
+                break
+    edges = G.get_edgelist()
+    n_nodes = G.vcount()
+    row=[]
+    col=[]
+    data=[]
+    for  edge in edges:
+        row.extend([edge[0],edge[1]])
+        col.extend([edge[1],edge[0]])
+        data.extend([1,1])
+    adjacency = sp.coo_matrix((data,(row,col)), shape=(n_nodes,n_nodes))
+    list_indices=G.vs["name"]
+    return adjacency,edges,list_indices
 
 
 def load_adjacency (file_name):
@@ -22,7 +84,7 @@ def load_adjacency (file_name):
     for  line in file:
         edge= line.split()
         edge = list(map(int,edge))
-        if edge[0]>10000 or edge[1]>10000:
+        if edge[0]>15000 or edge[1]>15000:
             continue
         if edge[0]>n_nodes:
             n_nodes=edge[0]
@@ -45,16 +107,6 @@ def normalize_adjacency(adjacency):
     d_inv = sp.diags(np.power(d, -0.5).flatten())    
     normalized = adjacency_.dot(d_inv).transpose().dot(d_inv)
     return dense_to_sparse(normalized)
-
-def normalize_dense_adjacency(adjacency):
-    '''Normalizes the adjacency matrix given in dense format, returns it in dense format'''
-    adjacency=np.eye(adjacency.shape[0]) + adjacency
-    row_sums=adjacency.sum(1)
-    d=np.diag(row_sums)
-    d_inv = np.linalg.inv(np.sqrt(d))
-    normalized = np.dot(d_inv,adjacency)
-    normalized = np.dot(normalized,d_inv)
-    return normalized
 
 
 def dense_to_sparse (adjacency):
@@ -125,7 +177,7 @@ def train_test_split (adjacency):
     train_adjacency = sp.coo_matrix((data,(row,col)), shape=(n_nodes,n_nodes))
     return train_adjacency,test_edges_pos,test_edges_neg,val_edges_pos,val_edges_neg
         
-       
+
 
  
 '''
