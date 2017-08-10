@@ -9,11 +9,13 @@ import numpy as np
 import scipy.sparse as sp
 import igraph as ig
 import cairo
+import os
 
 
 
 def get_nnodes (file_name):
     '''Loads a txt file containing the list of edges and return the adjacency matrix in coo format'''
+    file_name=os.getcwd()+file_name
     file=open(file_name,'r')
     n_nodes=0
     for  line in file:
@@ -31,6 +33,7 @@ def get_nnodes (file_name):
 
 def load_graph (file_name):
     '''Loads a txt file containing the list of edges and return the adjacency matrix in coo format'''
+    file_name=os.getcwd()+file_name
     file=open(file_name,'r')
     G=ig.Graph()
     n_nodes = get_nnodes(file_name)
@@ -76,6 +79,7 @@ def get_cluster (file_name,idx=-2):
 
 def load_adjacency (file_name):
     '''Loads a txt file containing the list of edges and return the adjacency matrix in coo format'''
+    file_name=os.getcwd()+file_name
     file=open(file_name,'r')
     row=[]
     col=[]
