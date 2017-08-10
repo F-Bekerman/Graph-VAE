@@ -3,6 +3,9 @@ We use the Variational Graph Autoencoder (T. Kipf, M. Welling https://arxiv.org/
 
 Variational Graph Autoencoders generate latent representations  of the adjacency matrix of a graph using  Graph Convolutional Networks https://arxiv.org/abs/1609.02907 and recover the adjacency matrix from this latent representation.
 
+https://github.com/F-Bekerman/Graph-VAE/edit/master/graph.html
+
+
 ### Run_VGAE
 Run this program to Build a VGAE and train/test  it on your graph. Will return the test average precision every 10 training epochs and the final ROC_Curve.
 
