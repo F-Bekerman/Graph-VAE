@@ -50,11 +50,9 @@ class VGAE (object):
             
             self.W_0_mu = None
             self.W_1_mu = None
-            self.W_2_mu = None
             
             self.W_0_sigma=None
             self.W_1_sigma=None
-            self.W_2_sigma=None
             
             self.mu_np=[]
             self.sigma_np=[]
@@ -67,22 +65,20 @@ class VGAE (object):
             #Initialize Weights
             self.W_0_mu = Initialization.unif_weight_init(shape=[self.n_nodes,self.n_hidden])
             self.W_1_mu = Initialization.unif_weight_init(shape=[self.n_hidden,self.n_hidden])
-            self.W_2_mu = Initialization.unif_weight_init(shape=[self.n_hidden,self.n_latent])
             
             self.W_0_sigma = Initialization.unif_weight_init(shape=[self.n_nodes,self.n_hidden])
             self.W_1_sigma = Initialization.unif_weight_init(shape=[self.n_hidden,self.n_hidden])
-            self.W_2_sigma = Initialization.unif_weight_init(shape=[self.n_hidden,self.n_latent])
             
                         
             #Compute Graph Convolutional Layers for the mean parameter
             hidden_0_mu_=Initialization.gcn_layer_id(self.norm_adj_mat,self.W_0_mu)
             hidden_0_mu=tf.nn.dropout(hidden_0_mu_,self.keep_prob)
-            self.mu = Initialization.gcn_layer(self.norm_adj_mat,hidden_0_mu,self.W_2_mu)
+            self.mu = Initialization.gcn_layer(self.norm_adj_mat,hidden_0_mu,self.W_1_mu)
             
             #Compute Graph Convolutional Layers for the variance  parameter
             hidden_0_sigma_=Initialization.gcn_layer_id(self.norm_adj_mat,self.W_0_sigma)
             hidden_0_sigma=tf.nn.dropout(hidden_0_sigma_,self.keep_prob)
-            log_sigma = Initialization.gcn_layer(self.norm_adj_mat,hidden_0_sigma,self.W_2_sigma)
+            log_sigma = Initialization.gcn_layer(self.norm_adj_mat,hidden_0_sigma,self.W_1_sigma)
             self.sigma=tf.exp(log_sigma)
             
             #Latent Loss  Function. It is given by the KL divergence (closed formula)
